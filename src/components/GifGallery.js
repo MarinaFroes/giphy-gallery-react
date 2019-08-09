@@ -15,13 +15,11 @@ const Gallery = styled.div`
 const GalleryContainer = styled.div`
   display: flex;
   flex-direction: column;
-  border: 3px solid blue;
 `;
 
 const GifDiv = styled.div`
   width: auto;
   height: 200px;
-  border: 3px solid red;
   margin: 0.2rem;
 `;
 
