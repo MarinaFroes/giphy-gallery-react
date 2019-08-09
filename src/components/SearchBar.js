@@ -4,7 +4,6 @@ import styled from 'styled-components';
 const SearchBarContainer = styled.form`
   display: flex;
   align-items: left;
-  border: 3px solid purple;
   width: 100%;
 `;
 
