@@ -19,30 +19,29 @@ const GalleryContainer = styled.div`
 `;
 
 const GifDiv = styled.div`
-  width: 200px;
+  width: auto;
   height: 200px;
   border: 3px solid red;
   margin: 0.2rem;
 `;
 
-const gifsArray = [1, 2, 3, 4, 5, 6, 8, 9, 10];
-
-export default function GifGallery() {
+function GifGallery({ gifDatas }) {
   return (
     <GalleryContainer>
-      <GalleryTitle>Trending Gifs</GalleryTitle>
+      <GalleryTitle>Gif Gallery</GalleryTitle>
       <Gallery>
         {
-          gifsArray.map(gif => {
+          gifDatas.map(gifData => {
             return (
-              <GifDiv>
-              <Gif url={gif} alt={gif} key={gif} />
+              <GifDiv key={gifData.gifId}>
+                <Gif url={gifData.gifUrl} />
               </GifDiv>
             )
           })
         }
-        <Gif data={"test"}/>
       </Gallery>
     </GalleryContainer>
   )
 }
+
+export default GifGallery;
