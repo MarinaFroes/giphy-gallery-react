@@ -23,13 +23,13 @@ const GifDiv = styled.div`
   margin: 0.2rem;
 `;
 
-function GifGallery({ gifDatas }) {
+function GifGallery({ data }) {
   return (
     <GalleryContainer>
       <GalleryTitle>Gif Gallery</GalleryTitle>
       <Gallery>
         {
-          gifDatas.map(gifData => {
+          data.map(gifData => {
             return (
               <GifDiv key={gifData.gifId}>
                 <Gif url={gifData.gifUrl} />
