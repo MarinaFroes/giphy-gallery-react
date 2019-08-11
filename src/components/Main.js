@@ -19,8 +19,8 @@ const ErrorMessage = styled.p`
 
 export default class Main extends Component {
   state = {
-    gifDatas: [],
-    errorMessage: ""
+    data: [],
+    errorMessage: "",
   };
 
   fetchData = async (type, userInput) => {
@@ -31,7 +31,7 @@ export default class Main extends Component {
 
       if (response.status === 200) {
         const jsonResponse = await response.json();
-        const gifDataArray = [];
+        const dataArray = [];
 
         if (jsonResponse.pagination.total_count === 0) {
           this.setState({
@@ -47,15 +47,15 @@ export default class Main extends Component {
         }
 
         for (let i = 0; i < jsonResponse.data.length; i++) {
-          gifDataArray.push({
+          dataArray.push({
             gifId: jsonResponse.data[i].id,
             gifUrl: jsonResponse.data[i].images.fixed_height.url
           });
         }
 
         this.setState({
-          gifDatas: gifDataArray,
-          errorMessage: null
+          data: dataArray,
+          errorMessage: null,
         });
       }
     } catch (error) {
@@ -80,7 +80,6 @@ export default class Main extends Component {
     return (
       <MainContainer>
         <SearchBar onSubmit={this.handleSubmit}/>
-        <GifGallery gifDatas={this.state.gifDatas} />
         <ErrorMessage>{this.state.errorMessage}</ErrorMessage>
       </MainContainer>
     );
