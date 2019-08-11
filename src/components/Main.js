@@ -49,7 +49,9 @@ export default class Main extends Component {
           error: null
         });
 
+        return;
       }
+      throw new Error("Failed");
     }
     catch (error) {
       this.setState({
@@ -94,11 +96,11 @@ export default class Main extends Component {
     await this.getTrendingGifs();
   }
   
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
     const userInput = event.target.search.value;
     console.log(userInput);
-    this.getUserInput(userInput);
+    await this.getUserInput(userInput);
   }
 
   render() {
