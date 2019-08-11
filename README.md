@@ -1,6 +1,5 @@
 # Giphy gallery
-<!-- TODO: Add app image here -->
-![]()
+![](./src/images/giphyGallery.gif)
 
 ## Introduction
 
@@ -9,13 +8,13 @@
 
 ## Implementation requirements
 
- - [] Avoid the urge to use jQuery if possible.
- - [] Include an input field at the top which accepts a search word.  
- - [] Submitting the form triggers a search on the Giphy API which returns the list of matching Gif images.
- - [] Think about how to handle loading states and errors.
- - [] Include a brief README file so we can easily run this locally.
- - [] Do not upload it to a public repo.
- - [] Try to complete the task within 2–4 hours
+ - [x] Avoid the urge to use jQuery if possible.
+ - [x] Include an input field at the top which accepts a search word.  
+ - [x] Submitting the form triggers a search on the Giphy API which returns the list of matching Gif images.
+ - [x] Think about how to handle loading states and errors.
+ - [x] Include a brief README file so we can easily run this locally.
+ - [x] Do not upload it to a public repo.
+ - [x] Try to complete the task within 2–4 hours
 
 ## Libraries and frameworks
 
