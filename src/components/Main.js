@@ -35,7 +35,7 @@ export default class Main extends Component {
 
         if (jsonResponse.pagination.total_count === 0) {
           this.setState({
-            gifDatas: [],
+            data: [],
             errorMessage: "No gif found. Try again"
           });
           return;
@@ -80,6 +80,7 @@ export default class Main extends Component {
     return (
       <MainContainer>
         <SearchBar onSubmit={this.handleSubmit}/>
+        <GifGallery data={this.state.data} />
         <ErrorMessage>{this.state.errorMessage}</ErrorMessage>
       </MainContainer>
     );
