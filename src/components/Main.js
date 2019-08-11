@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import SearchBar from './SearchBar';
-import GifGallery from './GifGallery';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import SearchBar from "./SearchBar";
+import GifGallery from "./GifGallery";
+import styled from "styled-components";
 
 const MainContainer = styled.main`
   display: flex;
@@ -17,53 +17,18 @@ const ErrorMessage = styled.p`
   font-weight: bold;
 `;
 
-
-const API_KEY = "catBjjoSXxZlwG8tEqcHcRnoSEpoDphA";
-
 export default class Main extends Component {
-
   state = {
     gifDatas: [],
-    error: "",
+    errorMessage: "",
     loading: true
-  }
+  };
 
-  getTrendingGifs = async () => {
+  fetchData = async (type, userInput) => {
+    const endpoint = `https://api.giphy.com/v1/gifs/${type}?api_key=catBjjoSXxZlwG8tEqcHcRnoSEpoDphA&q=${userInput}&limit=10&offset=0&rating=G&lang=en`;
+
     try {
-      const response = await fetch(`https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&limit=10&rating=G`);
-
-      if (response.status === 200) {
-        const jsonResponse = await response.json();
-        const gifDataArray = [];
-
-        for (let i = 0; i < jsonResponse.data.length; i++) {
-          gifDataArray.push({
-            gifId: jsonResponse.data[i]["id"],
-            gifUrl: jsonResponse.data[i].images.fixed_height.url
-          })
-        }
-
-        await this.setState({
-          gifDatas: gifDataArray,
-          loading: false,
-          error: null
-        });
-
-        return;
-      }
-      throw new Error("Failed");
-    }
-    catch (error) {
-      this.setState({
-        error: `Oops! There was an error: ${error}`
-      });
-      console.log(error);
-    }
-  }
-  
-  getUserInput = async (userInput) => {
-    try {
-      const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${userInput}&limit=10&offset=0&rating=G&lang=en`);
+      const response = await fetch(endpoint);
 
       if (response.status === 200) {
         const jsonResponse = await response.json();
@@ -73,34 +38,41 @@ export default class Main extends Component {
           gifDataArray.push({
             gifId: jsonResponse.data[i].id,
             gifUrl: jsonResponse.data[i].images.fixed_height.url
-          })
+          });
         }
 
-        await this.setState({
+        if (jsonResponse.pagination.total_count === 0) {
+          this.setState({
+            errorMessage: "No gif found. Try again"
+          });
+        } else {
+          this.setState({
+            errorMessage: ""
+          });
+        }
+
+        this.setState({
           gifDatas: gifDataArray,
           loading: false,
-          error: null
+          errorMessage: null
         });
-
       }
-    }
-    catch (error) {
+    } catch (error) {
       this.setState({
-        error: `Oops! There was an error: ${error}`
+        errorMessage: `Oops! There was an error: ${error}`
       });
       console.log(error);
     }
-  }
+  };
 
   async componentDidMount() {
-    await this.getTrendingGifs();
+    await this.fetchData("trending", "");
   }
-  
+
   async handleSubmit(event) {
     event.preventDefault();
     const userInput = event.target.search.value;
-    console.log(userInput);
-    await this.getUserInput(userInput);
+    await this.fetchData("search", userInput);
   }
 
   render() {
@@ -110,6 +82,6 @@ export default class Main extends Component {
         <GifGallery gifDatas={this.state.gifDatas} />
         <ErrorMessage>{this.state.error}</ErrorMessage>
       </MainContainer>
-    )
+    );
   }
 }
