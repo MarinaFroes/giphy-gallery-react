@@ -40,6 +40,7 @@ export default class Main extends Component {
             gifUrl: jsonResponse.data[i].images.fixed_height.url
           });
         }
+        console.log(jsonResponse.pagination.total_count);
 
         if (jsonResponse.pagination.total_count === 0) {
           this.setState({
@@ -65,11 +66,11 @@ export default class Main extends Component {
     }
   };
 
-  async componentDidMount() {
+  componentDidMount = async () => {
     await this.fetchData("trending", "");
   }
 
-  async handleSubmit(event) {
+  handleSubmit = async (event) => {
     event.preventDefault();
     const userInput = event.target.search.value;
     await this.fetchData("search", userInput);
@@ -80,7 +81,7 @@ export default class Main extends Component {
       <MainContainer>
         <SearchBar onSubmit={this.handleSubmit}/>
         <GifGallery gifDatas={this.state.gifDatas} />
-        <ErrorMessage>{this.state.error}</ErrorMessage>
+        <ErrorMessage>{this.state.errorMessage}</ErrorMessage>
       </MainContainer>
     );
   }
