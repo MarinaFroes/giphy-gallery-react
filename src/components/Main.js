@@ -20,8 +20,7 @@ const ErrorMessage = styled.p`
 export default class Main extends Component {
   state = {
     gifDatas: [],
-    errorMessage: "",
-    loading: true
+    errorMessage: ""
   };
 
   fetchData = async (type, userInput) => {
@@ -34,27 +33,28 @@ export default class Main extends Component {
         const jsonResponse = await response.json();
         const gifDataArray = [];
 
-        for (let i = 0; i < jsonResponse.data.length; i++) {
-          gifDataArray.push({
-            gifId: jsonResponse.data[i].id,
-            gifUrl: jsonResponse.data[i].images.fixed_height.url
-          });
-        }
-        console.log(jsonResponse.pagination.total_count);
-
         if (jsonResponse.pagination.total_count === 0) {
           this.setState({
+            gifDatas: [],
             errorMessage: "No gif found. Try again"
           });
+          return;
+
         } else {
           this.setState({
             errorMessage: ""
           });
         }
 
+        for (let i = 0; i < jsonResponse.data.length; i++) {
+          gifDataArray.push({
+            gifId: jsonResponse.data[i].id,
+            gifUrl: jsonResponse.data[i].images.fixed_height.url
+          });
+        }
+
         this.setState({
           gifDatas: gifDataArray,
-          loading: false,
           errorMessage: null
         });
       }
