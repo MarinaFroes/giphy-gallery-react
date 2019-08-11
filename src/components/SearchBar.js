@@ -34,7 +34,8 @@ export default function SearchBar({ onSubmit }) {
   return (
     <SearchBarContainer onSubmit={onSubmit}>
       <InputText type="text" name="search" id="search"
-        placeholder="Keyword..."/>
+          placeholder="Search keyword..." />
+      
       <InputSubmit type="submit" value="Search" />
     </SearchBarContainer>
   )
